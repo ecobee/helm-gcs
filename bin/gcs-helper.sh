@@ -56,7 +56,7 @@ push)
   mkdir $TMP_REPO
   cp $CHART_PATH $TMP_REPO
   helm repo index --merge $OLD_INDEX --url $BUCKET $TMP_REPO
-  gsutil cp $TMP_REPO/index.yaml $BUCKET
+  gsutil -h "Cache-Control:private,max-age=0,no-transform" -h "Content-Type:text/plain" cp $TMP_REPO/index.yaml $BUCKET
   gsutil cp $TMP_REPO/$(basename $CHART_PATH) $BUCKET
   echo "Repository initialized..."
   ;;
